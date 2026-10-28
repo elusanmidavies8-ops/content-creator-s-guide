@@ -1,5 +1,23 @@
-.env
-.venv/
+# Python
 __pycache__/
-*.gguf
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Virtual envs
+.venv/
 venv/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# OS
+.DS_Store
