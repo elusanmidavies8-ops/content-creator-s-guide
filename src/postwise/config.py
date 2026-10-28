@@ -18,14 +18,17 @@ class Settings(BaseSettings):
     app_env: Literal["dev", "test", "prod"] = "dev"
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
 
-    llm_provider: Literal["openai", "ollama", "fake"] = "fake"
-    llm_model: str = Field(default="llama-3.1-8b-instruct", min_length=1)
-    llm_base_url: str | None = None
+    # Phase 2: Groq primary, Together fallback. "fake" for tests.
+    llm_provider: Literal["groq", "together", "fake"] = "groq"
+    llm_model: str = "llama-3.3-70b-versatile"
+    llm_fallback_provider: Literal["together", "none"] = "together"
+    llm_fallback_model: str = "Qwen/Qwen3.5-9B"
     llm_api_key: SecretStr | None = None
+    llm_fallback_api_key: SecretStr | None = None
     llm_timeout_s: int = Field(default=30, ge=1, le=300)
     llm_max_retries: int = Field(default=2, ge=0, le=5)
 
-    @field_validator("llm_api_key", mode="before")
+    @field_validator("llm_api_key", "llm_fallback_api_key", mode="before")
     @classmethod
     def _empty_key_is_none(cls, v: object) -> object:
         if isinstance(v, str) and not v.strip():
@@ -35,6 +38,4 @@ class Settings(BaseSettings):
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
-    """Process-wide settings. Tests call `get_settings.cache_clear()` or
-    construct `Settings(...)` directly."""
     return Settings()

@@ -5,6 +5,7 @@ requires-python = ">=3.11"
 dependencies = [
     "pydantic>=2.7",
     "pydantic-settings>=2.3",
+    "openai>=1.40",
 ]
 
 [project.optional-dependencies]
