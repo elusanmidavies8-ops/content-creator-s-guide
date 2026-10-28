@@ -5,9 +5,12 @@ Type: AI. One LLM call per slot.
 Contract: (RhythmPlan, Strategy, CreatorProfile, VoiceProfile, LLMClient)
           -> list[Brief]
 
-Code overrides the slot_id on every returned brief. The AI never gets to
-decide which slot a brief belongs to — that is a structural fact, not a
-creative choice.
+Code overrides two fields on every returned brief:
+  - slot_id: structural, not creative
+  - format:  structural, not creative
+
+The AI still decides hook, outline, caption, cta. It never decides which
+slot the brief belongs to or what format it must fit — those are facts.
 """
 
 from postwise.ai.client import LLMClient
@@ -50,7 +53,7 @@ def run(
             user=user,
             schema=Brief,
         )
-        briefs.append(brief.model_copy(update={"slot_id": slot.slot_id}))
+        briefs.append(brief.model_copy(update={"slot_id": slot.slot_id, "format": slot.format}))
 
     return briefs
 
@@ -62,5 +65,4 @@ def _find_idea(pillar: Pillar, strategy: Strategy) -> str:
     for idea in strategy.pillar_ideas:
         if idea.pillar == pillar:
             return idea.idea
-    # StrategyLane validator guarantees one idea per pillar; this is unreachable.
     raise ValueError(f"no idea for pillar {pillar}")
