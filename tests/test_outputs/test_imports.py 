@@ -1,0 +1,47 @@
+"""Guard: output modules must not import the AI layer.
+
+Outputs render already-computed DR results. If they called AI directly,
+"everything measurable stays in code" would be a lie, and the pipeline's
+trace would misrepresent where the data came from.
+
+Outputs MAY import from postwise.dr — composing computed results is their job.
+"""
+
+from __future__ import annotations
+
+import ast
+from pathlib import Path
+
+import pytest
+
+OUTPUT_MODULES = [
+    "dr09_direction",
+    "dr10_audience",
+    "dr11_rhythm",
+    "dr12_scoreboard",
+    "dr13_posts",
+]
+OUTPUTS_DIR = Path(__file__).resolve().parents[2] / "src" / "postwise" / "outputs"
+
+
+def _imports_from(path: Path) -> set[str]:
+    tree = ast.parse(path.read_text(encoding="utf-8"))
+    names: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                names.add(alias.name)
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            names.add(node.module)
+    return names
+
+
+@pytest.mark.parametrize("module", OUTPUT_MODULES)
+def test_output_module_does_not_import_ai(module: str) -> None:
+    path = OUTPUTS_DIR / f"{module}.py"
+    if not path.exists():
+        pytest.skip(f"{module} not written yet")
+    for imp in _imports_from(path):
+        assert not imp.startswith("postwise.ai"), (
+            f"{module} must not import {imp} — outputs are pure views"
+        )

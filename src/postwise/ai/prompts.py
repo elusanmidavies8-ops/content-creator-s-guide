@@ -15,11 +15,7 @@ from dataclasses import dataclass
 
 from pydantic import BaseModel
 
-from postwise.schemas import (
-    Brief,
-    CreatorProfile,
-    StrategyLane,
-)
+from postwise.schemas import Brief, CreatorProfile, StrategyLane
 
 
 @dataclass(frozen=True)
@@ -60,6 +56,12 @@ You are a content strategist. Pick ONE lane for this creator and give exactly
 three ideas: one Magnet (pulls new people in), one Authority (proves skill),
 one Affinity (makes people like them). Each idea must fit the creator's niche
 and the platforms they chose. No more than one sentence per idea.
+
+Also classify the creator's goal as exactly one of:
+- audience (grow followers or reach)
+- community (deeper engagement, DMs, loyal fans)
+- customers (turn content into sales)
+- opportunities (inbound collabs, press, gigs)
 """
 
 _DR05_USER = """\
@@ -71,10 +73,10 @@ Profile:
 
 Platforms: {platforms}
 Formats: {formats}
-Goal type: {goal_type}
 
 Return JSON matching the StrategyLane schema. Exactly 3 pillar ideas,
-one per pillar (magnet, authority, affinity).
+one per pillar (magnet, authority, affinity). Determine goal_type from
+the goal text.
 """
 
 
