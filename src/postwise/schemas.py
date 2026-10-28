@@ -14,7 +14,7 @@ Two rules enforced by this file:
 from __future__ import annotations
 
 from enum import StrEnum
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -152,10 +152,10 @@ class CreatorInput(BaseModel):
     formats: list[Format] = Field(..., min_length=1, max_length=len(Format))
 
     # Q6 optional — voice source (post, caption, or transcript)
-    samples: list[str] = Field(default_factory=list, max_length=MAX_SAMPLES)
+    samples: list[str] = Field(default_factory=list)
 
     # Q7 optional — audience gaps source
-    dm_questions: list[str] = Field(default_factory=list, max_length=MAX_DM_QUESTIONS)
+    dm_questions: list[str] = Field(default_factory=list)
 
     @field_validator("makes_and_audience", "goal_90d")
     @classmethod
@@ -178,7 +178,7 @@ class CreatorInput(BaseModel):
 
     @field_validator("platforms", "formats")
     @classmethod
-    def _dedupe_enums(cls, v: list) -> list:
+    def _dedupe_enums(cls, v: list[Any]) -> list[Any]:
         return list(dict.fromkeys(v))
 
     @field_validator("samples")

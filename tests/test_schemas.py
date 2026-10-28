@@ -86,9 +86,9 @@ def test_hours_zero_rejected():
         make_input(hours_per_week=0)
 
 
-def test_more_than_three_samples_rejected():
-    with pytest.raises(ValidationError):
-        make_input(samples=["a"] * (MAX_SAMPLES + 1))
+def test_samples_truncated_to_three():
+    inp = make_input(samples=["a"] * (MAX_SAMPLES + 3))
+    assert inp.samples == ["a"] * MAX_SAMPLES
 
 
 def test_empty_platforms_rejected():
@@ -126,8 +126,8 @@ def test_locations_are_stripped_and_deduped_case_insensitive():
 
 
 def test_samples_are_stripped_and_capped():
-    inp = make_input(samples=["  hello  ", "", "world", "ignored"])
-    assert inp.samples == ["hello", "world"]
+    inp = make_input(samples=["  a  ", "b", "", "c", "d", "e"])
+    assert inp.samples == ["a", "b", "c"]
 
 
 def test_dm_questions_are_stripped_and_capped():

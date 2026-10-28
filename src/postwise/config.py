@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
 
     # Phase 2: Groq primary, Together fallback. "fake" for tests.
-    llm_provider: Literal["groq", "together", "fake"] = "groq"
+    llm_provider: Literal["groq", "together", "fake"] = "fake"
     llm_model: str = "llama-3.3-70b-versatile"
     llm_fallback_provider: Literal["together", "none"] = "together"
     llm_fallback_model: str = "Qwen/Qwen3.5-9B"
