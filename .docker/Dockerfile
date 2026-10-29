@@ -1,4 +1,6 @@
+
 # syntax=docker/dockerfile:1.7
+
 FROM python:3.11-slim AS base
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -16,12 +18,13 @@ WORKDIR /app
 COPY pyproject.toml ./
 COPY README.md ./
 
+# Copy source before installing the project package
+COPY src/ ./src/
+
 # Use uv for fast, reproducible installs
 RUN pip install --no-cache-dir uv \
  && uv pip install --system --no-cache .
 
-# Copy source
-COPY src/ ./src/
 COPY postwise_ui.py ./
 
 # Drop privileges
