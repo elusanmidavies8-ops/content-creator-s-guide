@@ -124,10 +124,7 @@ def get_client(settings: Settings) -> LLMClient:
         return FakeLLM()
 
     if settings.llm_api_key is None:
-        raise ValueError(
-            f"POSTWISE_LLM_API_KEY is required for provider="
-            f"{settings.llm_provider!r}"
-        )
+        raise ValueError(f"POSTWISE_LLM_API_KEY is required for provider={settings.llm_provider!r}")
 
     return OpenAICompatClient(
         provider=settings.llm_provider,

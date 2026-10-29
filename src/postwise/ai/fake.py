@@ -30,16 +30,14 @@ class FakeLLM:
     """Returns fixed, schema-valid objects keyed by output schema."""
 
     def __init__(self) -> None:
-        self.calls: list[dict] = []
+        self.calls: list[dict[str, object]] = []
 
     def complete(self, *, system: str, user: str) -> str:
         self.calls.append({"system": system, "user": user})
         return "fake completion"
 
     def complete_json(self, *, system: str, user: str, schema: type[T]) -> T:
-        self.calls.append(
-            {"system": system, "user": user, "schema": schema.__name__}
-        )
+        self.calls.append({"system": system, "user": user, "schema": schema.__name__})
         return _CANNED[schema]  # type: ignore[return-value]
 
 

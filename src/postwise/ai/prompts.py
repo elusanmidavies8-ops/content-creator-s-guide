@@ -66,7 +66,8 @@ Also classify the creator's goal as exactly one of:
 Return JSON with exactly these fields:
 - "lane": string (the one-sentence lane description)
 - "goal_type": one of "audience", "community", "customers", "opportunities"
-- "pillar_ideas": array of exactly 3 objects, each with "pillar" (one of "magnet", "authority", "affinity") and "idea" (string)
+- "pillar_ideas": array of exactly 3 objects, each with "pillar"
+  (one of "magnet", "authority", "affinity") and "idea" (string)
 """
 
 _DR05_USER = """\

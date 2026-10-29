@@ -40,28 +40,31 @@ print("\n" + "=" * 60)
 print("PIPELINE RESULT")
 print("=" * 60)
 
-print(f"\n📍 DIRECTION (DR09)")
+print("\n📍 DIRECTION (DR09)")
 print(f"   Lane: {result.direction.lane}")
 print(f"   Pillars: {[f'{p.pillar.value}: {p.idea}' for p in result.direction.pillars]}")
 
-print(f"\n👥 AUDIENCE (DR10)")
+print("\n👥 AUDIENCE (DR10)")
 for topic in result.audience_wants.topics:
     print(f"   - {topic.name} (source: {topic.source.value})")
     if topic.examples:
         print(f"     Examples: {topic.examples}")
 
-print(f"\n📅 RHYTHM (DR11)")
+print("\n📅 RHYTHM (DR11)")
 print(f"   Total slots: {len(result.rhythm.slots)}")
 for slot in result.rhythm.slots:
-    print(f"   - {slot.slot_id}: {slot.format.value} on {slot.day.value} {slot.daypart.value} ({slot.platform.value})")
+    print(
+        f"   - {slot.slot_id}: {slot.format.value} on "
+        f"{slot.day.value} {slot.daypart.value} ({slot.platform.value})"
+    )
 
-print(f"\n📊 SCOREBOARD (DR12)")
+print("\n📊 SCOREBOARD (DR12)")
 print(f"   Goal type: {result.scoreboard.goal_type.value}")
 print(f"   Milestone: Day {result.scoreboard.milestone.day} - {result.scoreboard.milestone.target}")
 for metric in result.scoreboard.metrics:
     print(f"   - {metric.name}: {metric.why}")
 
-print(f"\n📝 BRIEFS (DR13) - First 2 weeks")
+print("\n📝 BRIEFS (DR13) - First 2 weeks")
 for i, scored_brief in enumerate(result.briefs, 1):
     brief = scored_brief.brief
     print(f"   {i}. {brief.slot_id} [{brief.format.value}]")

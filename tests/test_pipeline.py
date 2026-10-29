@@ -115,7 +115,7 @@ class ExplodingLLM:
         self.calls.append({"schema": schema.__name__})
         if schema.__name__ == self.fail_on:
             raise LLMContractError(schema=schema, raw="bad output")
-        from tests.conftest import _CANNED
+        from postwise.ai.fake import _CANNED
 
         return _CANNED[schema]
 
