@@ -23,3 +23,10 @@ venv/
 .DS_Store
 .vscode
 /vscode.vscode/
+
+
+# Local reference UI (partner's version is the committed one)
+postwise_ui.py.bak
+
+# Local docker overrides
+.docker/docker-compose.override.yml

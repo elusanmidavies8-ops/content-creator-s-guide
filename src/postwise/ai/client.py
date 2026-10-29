@@ -117,14 +117,17 @@ class OpenAICompatClient:
 # Factory — the only place in the codebase that reads provider settings.
 # ---------------------------------------------------------------------------
 def get_client(settings: Settings) -> LLMClient:
-    """Return the primary client, or FakeLLM when provider='fake'."""
+    """Return the primary client. Fake only when provider is 'fake'."""
     if settings.llm_provider == "fake":
-        from tests.conftest import FakeLLM  # imported lazily; tests only
+        from postwise.ai.fake import FakeLLM
 
         return FakeLLM()
 
     if settings.llm_api_key is None:
-        raise ValueError(f"POSTWISE_LLM_API_KEY is required for provider={settings.llm_provider!r}")
+        raise ValueError(
+            f"POSTWISE_LLM_API_KEY is required for provider="
+            f"{settings.llm_provider!r}"
+        )
 
     return OpenAICompatClient(
         provider=settings.llm_provider,

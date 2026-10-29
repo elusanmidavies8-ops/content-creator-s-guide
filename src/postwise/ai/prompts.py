@@ -62,6 +62,11 @@ Also classify the creator's goal as exactly one of:
 - community (deeper engagement, DMs, loyal fans)
 - customers (turn content into sales)
 - opportunities (inbound collabs, press, gigs)
+
+Return JSON with exactly these fields:
+- "lane": string (the one-sentence lane description)
+- "goal_type": one of "audience", "community", "customers", "opportunities"
+- "pillar_ideas": array of exactly 3 objects, each with "pillar" (one of "magnet", "authority", "affinity") and "idea" (string)
 """
 
 _DR05_USER = """\
@@ -89,11 +94,22 @@ caption, cta.
 
 The outline means different things by format:
 - text: the outline IS the post body.
-- short_video / long_video: premise and beats. Not the performance.
-- carousel: slide-by-slide outline.
-- audio: segment outline.
+- short_video / long_video: premise and beats as a single text string. Not the performance.
+- carousel: slide-by-slide outline as a single text string.
+- audio: segment outline as a single text string.
+
+IMPORTANT: The "outline" field MUST be a single string, not an object. For videos,
+include both premise and beats in one string.
 
 Use the creator's voice. Match the slot's platform and format.
+
+Return JSON with exactly these fields:
+- "slot_id": string
+- "format": string (one of "text", "short_video", "long_video", "carousel", "audio")
+- "hook": string
+- "outline": string (single text, not an object)
+- "caption": string
+- "cta": string
 """
 
 _DR07_USER = """\
@@ -107,7 +123,8 @@ Slot:
 - Pillar: {pillar}
 - Idea: {pillar_idea}
 
-Write the brief. Return JSON matching the Brief schema.
+Write the brief. Return JSON matching the Brief schema. The outline field
+must be a single string, not an object.
 """
 
 

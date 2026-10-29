@@ -1,4 +1,36 @@
-.git
-.venv
-__pycache__
-*.gguf
+# Virtual env
+.venv/
+venv/
+
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Tests and dev tooling
+tests/
+scripts/
+docs/
+
+# Local env and secrets
+.env
+.env.*
+!.env.example
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
