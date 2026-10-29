@@ -33,7 +33,6 @@ BORDER = "#D8D6CE"
 
 
 def _light_theme_values(theme: gr.themes.Base) -> dict[str, str]:
-    """Set all Gradio color/fill tokens, including dark variants, to light colors."""
     names = inspect.signature(theme.set).parameters
     values: dict[str, str] = {}
     text_colors = {
@@ -134,18 +133,166 @@ footer {
     display: none !important;
 }
 .gradio-container {
-    max-width: 760px !important;
+    max-width: 1000px !important;
     margin: 0 auto !important;
-    padding: 28px 20px 48px !important;
+    padding: 20px !important;
 }
 .gradio-container .main.fillable > .wrap,
 .gradio-container .contain {
     width: 100% !important;
-    max-width: 720px !important;
+    max-width: 100% !important;
 }
 .gradio-container .main.fillable {
     padding: 0 !important;
 }
+
+/* =========================================
+   LANDING PAGE SPLIT SCREEN
+   ========================================= */
+.pw-hero-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 40px !important;
+    padding: 60px 20px !important;
+    min-height: 75vh !important;
+}
+.pw-hero-text {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+.pw-badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 8px 16px;
+    background: #EEEDFA;
+    color: #4549A8;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+.pw-hero-text h1 {
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-size: clamp(40px, 5vw, 64px) !important;
+    color: #263044 !important;
+    margin: 0 0 24px 0 !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.03em !important;
+}
+.pw-hero-text h1 span {
+    color: #4549A8;
+    font-style: italic;
+}
+.pw-hero-text p {
+    font-size: 18px !important;
+    color: #62697A !important;
+    margin: 0 0 40px 0 !important;
+    line-height: 1.6 !important;
+}
+
+/* The CTA Button in the split screen */
+.pw-start-btn-container button {
+    background: #4549A8 !important;
+    color: white !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    padding: 16px 32px !important;
+    border-radius: 99px !important;
+    border: none !important;
+    width: 100% !important;
+    max-width: 300px !important;
+    box-shadow: 0 8px 24px rgba(69, 73, 168, 0.3) !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+.pw-start-btn-container button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 32px rgba(69, 73, 168, 0.4) !important;
+}
+
+/* The CSS Mockup */
+.pw-hero-visual {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.pw-mockup {
+    background: #FFFEFA;
+    border: 1px solid #D8D6CE;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 24px 64px rgba(38, 48, 68, 0.12);
+    transform: rotate(2deg);
+    max-width: 420px;
+    width: 100%;
+    position: relative;
+}
+.pw-mockup::before {
+    content: "Example Content Brief";
+    position: absolute;
+    top: -14px;
+    right: 24px;
+    background: #263044;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 99px;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.pw-mockup-meta {
+    font-size: 11px;
+    font-weight: 700;
+    color: #62697A;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+.pw-mockup-hook {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    color: #263044;
+    margin-bottom: 24px;
+    line-height: 1.3;
+}
+.pw-mockup-body {
+    font-size: 14px; 
+    color: #62697A; 
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+.pw-mockup-fix {
+    background: #FFF3D6;
+    color: #4B3A16;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid #F0E5C8;
+}
+
+@media (max-width: 768px) {
+    .pw-hero-row {
+        flex-direction: column !important;
+        text-align: center !important;
+        padding: 40px 20px !important;
+    }
+    .pw-hero-text {
+        align-items: center !important;
+    }
+    .pw-mockup {
+        transform: rotate(0deg);
+        margin-top: 40px;
+    }
+}
+
+/* =========================================
+   FORM & PLAN STYLES
+   ========================================= */
 .pw-header {
     margin-bottom: 28px !important;
     padding: 0 0 22px !important;
@@ -169,11 +316,13 @@ footer {
     gap: 22px !important;
 }
 .pw-form {
-    padding: 28px !important;
+    padding: 32px !important;
     background: #FFFEFA !important;
     border: 1px solid #D8D6CE !important;
-    border-radius: 18px !important;
+    border-radius: 20px !important;
     box-shadow: 0 12px 32px rgba(38, 48, 68, 0.06) !important;
+    max-width: 760px !important;
+    margin: 0 auto !important;
 }
 .pw-form label, .pw-form .wrap label,
 .pw-form [data-testid="block-label"],
@@ -214,13 +363,16 @@ footer {
     border-radius: 99px !important;
     color: #FFFEFA !important;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-    font-size: 15px !important;
+    font-size: 16px !important;
     font-weight: 600 !important;
-    min-height: 48px !important;
+    min-height: 50px !important;
     padding: 0 24px !important;
+    transition: all 0.2s ease !important;
 }
 .pw-primary button:hover, .pw-action:hover {
     background: #373B8F !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(69, 73, 168, 0.3) !important;
 }
 #build-status {
     color: #62697A !important;
@@ -453,6 +605,62 @@ footer {
         padding: 16px;
     }
 }
+
+/* Navigation Bar in Plan View */
+.pw-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    margin-bottom: 32px;
+    border-bottom: 1px solid #D8D6CE;
+}
+.pw-logo {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    font-weight: bold;
+    color: #263044;
+}
+.pw-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.pw-share-btn {
+    background: transparent;
+    border: 1px solid #D8D6CE;
+    border-radius: 99px;
+    padding: 8px 16px;
+    color: #4549A8;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.pw-share-btn:hover {
+    background: #EEEDFA;
+    border-color: #4549A8;
+}
+.pw-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #263044;
+}
+.pw-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #4549A8;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
 """
 
 BLOCKS_CSS: dict[str, str] = {}
@@ -484,7 +692,6 @@ OUTLINE_LABELS = {
 
 
 def parse_goal_number(text: str) -> int | None:
-    """Pull the first number out of goal_90d. '1,000 followers' -> 1000."""
     match = re.search(r"\b([\d,]+)\b", text)
     if not match:
         return None
@@ -651,7 +858,6 @@ def _render_plan_details(plan: dict[str, object]) -> str:
 
 
 def render_plan_html(view: dict[str, object], elapsed: float, answer_count: int) -> str:
-    """Render the view contract returned by postwise.render.build_view."""
     progress = view.get("progress", {})
     if not isinstance(progress, dict):
         progress = {}
@@ -677,6 +883,13 @@ def render_plan_html(view: dict[str, object], elapsed: float, answer_count: int)
 
     return (
         '<main class="pw-plan">'
+        '<nav class="pw-nav">'
+        '<div class="pw-logo">PostWise</div>'
+        '<div class="pw-nav-right">'
+        '<button class="pw-share-btn" onclick="navigator.clipboard.writeText(window.location.href); alert(\'Link copied to clipboard!\');">Share Plan</button>'
+        '<div class="pw-profile"><div class="pw-avatar">C</div> Creator (Pro)</div>'
+        '</div>'
+        '</nav>'
         "<header>"
         '<p class="pw-lane-label">YOUR LANE</p>'
         f'<h1 class="pw-lane">{_text(view.get("lane"))}</h1>'
@@ -796,98 +1009,83 @@ def on_made(
 
 
 with gr.Blocks(title="PostWise", **BLOCKS_CSS, **BLOCKS_HEAD, **BLOCKS_THEME) as demo:
-    with gr.Column(elem_classes=["pw-header"]):
-        gr.Markdown("# PostWise", elem_classes=["pw-title"])
-        gr.Markdown(
-            "A clear plan for creators who are just starting",
-            elem_classes=["pw-tagline"],
-        )
+    
     session_state = gr.State(value=None)
     result_state = gr.State(value=None)
     render_stats_state = gr.State(value=None)
 
-    with gr.Column(visible=True, elem_classes=["pw-form"]) as form_column:
-        makes_and_audience = gr.Textbox(
-            label="What do you make, and who is it for?",
-            lines=1,
-        )
-        goal_90d = gr.Textbox(
-            label="What do you want in 90 days?",
-            lines=1,
-        )
-        hours_per_week = gr.Slider(
-            minimum=1,
-            maximum=20,
-            value=5,
-            step=1,
-            label="Hours per week you can give this",
-        )
-        audience_locations = gr.Textbox(
-            label="Where is your audience?",
-            lines=1,
-            placeholder="Separate locations with commas",
-        )
-        platforms = gr.CheckboxGroup(
-            choices=PLATFORM_CHOICES,
-            label="Platforms",
-        )
-        formats = gr.CheckboxGroup(
-            choices=FORMAT_CHOICES,
-            label="Formats",
-        )
+    # --- STATE 0: LANDING PAGE (Native Gradio Split Layout) ---
+    with gr.Column(visible=True) as landing_column:
+        with gr.Row(elem_classes=["pw-hero-row"]):
+            # Left Side (Text + Button)
+            with gr.Column(scale=1, elem_classes=["pw-hero-text"]):
+                gr.HTML(
+                    '<div class="pw-badge">✨ AI Content Strategy</div>'
+                    '<h1>Know exactly<br>what to <span>post next.</span></h1>'
+                    '<p>PostWise gives beginner creators a 30-day content plan in 2 minutes. Know exactly what to film, when to post it, and how to measure it.</p>'
+                )
+                with gr.Column(elem_classes=["pw-start-btn-container"]):
+                    start_btn = gr.Button("Get Started for Free")
+            
+            # Right Side (CSS Mockup)
+            with gr.Column(scale=1, elem_classes=["pw-hero-visual"]):
+                gr.HTML(
+                    '<div class="pw-mockup">'
+                    '<div class="pw-mockup-meta">TUE EVENING · TIKTOK · SHORT VIDEO</div>'
+                    '<div class="pw-mockup-hook">POV: you forgot your matric number on day one</div>'
+                    '<div class="pw-mockup-meta" style="margin-bottom: 8px;">PREMISE & BEATS</div>'
+                    '<div class="pw-mockup-body">First day chaos. Panic. Fake confidence. Punchline.</div>'
+                    '<div class="pw-mockup-fix">One fix → widen the hook to 40-80 chars</div>'
+                    '</div>'
+                )
+
+    # --- STATE 1: FORM ---
+    with gr.Column(visible=False, elem_classes=["pw-form"]) as form_column:
+        with gr.Column(elem_classes=["pw-header"]):
+            gr.Markdown("# PostWise", elem_classes=["pw-title"])
+            gr.Markdown("A clear plan for creators who are just starting", elem_classes=["pw-tagline"])
+            
+        makes_and_audience = gr.Textbox(label="What do you make, and who is it for?", lines=1)
+        goal_90d = gr.Textbox(label="What do you want in 90 days?", lines=1)
+        hours_per_week = gr.Slider(minimum=1, maximum=20, value=5, step=1, label="Hours per week you can give this")
+        audience_locations = gr.Textbox(label="Where is your audience?", lines=1, placeholder="Separate locations with commas")
+        platforms = gr.CheckboxGroup(choices=PLATFORM_CHOICES, label="Platforms")
+        formats = gr.CheckboxGroup(choices=FORMAT_CHOICES, label="Formats")
+        
         with gr.Accordion("Make the plan sharper", open=False):
-            samples = gr.Textbox(
-                label="Paste up to 3 posts, captions, or transcripts.",
-                lines=3,
-                max_lines=3,
-                placeholder="One per line",
-            )
-            dm_questions = gr.Textbox(
-                label="Questions people ask you in DMs or comments.",
-                lines=4,
-                max_lines=20,
-                placeholder="One per line",
-            )
-        submit_btn = gr.Button(
-            "Build my plan",
-            variant="primary",
-            elem_classes=["pw-primary"],
-        )
+            samples = gr.Textbox(label="Paste up to 3 posts, captions, or transcripts.", lines=3, max_lines=3, placeholder="One per line")
+            dm_questions = gr.Textbox(label="Questions people ask you in DMs or comments.", lines=4, max_lines=20, placeholder="One per line")
+            
+        submit_btn = gr.Button("Build my plan", variant="primary", elem_classes=["pw-primary"])
         build_status = gr.Markdown("", elem_id="build-status")
 
+    # --- STATE 2: PLAN ---
     with gr.Column(visible=False, elem_classes=["pw-plan"]) as plan_column:
         plan_html = gr.HTML()
 
     made_btn = gr.Button("I made it", elem_id="made-btn")
+
+    # --- EVENTS ---
+    start_btn.click(
+        fn=lambda: (gr.update(visible=False), gr.update(visible=True)),
+        inputs=None,
+        outputs=[landing_column, form_column]
+    )
+
     submit_btn.click(
         on_submit,
-        inputs=[
-            makes_and_audience,
-            goal_90d,
-            hours_per_week,
-            audience_locations,
-            platforms,
-            formats,
-            samples,
-            dm_questions,
-        ],
-        outputs=[
-            build_status,
-            plan_html,
-            session_state,
-            result_state,
-            render_stats_state,
-            form_column,
-            plan_column,
-        ],
+        inputs=[makes_and_audience, goal_90d, hours_per_week, audience_locations, platforms, formats, samples, dm_questions],
+        outputs=[build_status, plan_html, session_state, result_state, render_stats_state, form_column, plan_column],
         show_progress="hidden",
     )
+
     made_btn.click(
         on_made,
         inputs=[session_state, result_state, render_stats_state],
         outputs=[plan_html],
         show_progress="hidden",
     )
+    
     demo.load(None, js=LIGHT_MODE_JS, queue=False)
 
 
