@@ -71,7 +71,7 @@ As a 5-day prototype, we made deliberate tradeoffs:
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/Binary-Minds/postwise.git
+git clone https://github.com/elusanmidavies8-ops/content-creator-s-guide.git
 cd postwise
 
 # 2. Install dependencies (using uv or pip)
