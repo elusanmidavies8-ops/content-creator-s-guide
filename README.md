@@ -4,7 +4,7 @@
 **Team:** Binary Minds
 **Event:** OPEN//BUILD 2026 · OSCA Ile-Ife Hacktoberfest Challenge
 
-**🔗 Live Demo:** [INSERT YOUR DEPLOY LINK HERE]
+**🔗 Live Demo:** [https://content-creator-s-guide.onrender.com]
 *(If the live link is down or slow due to free-tier limits, see the "Run Locally" section below).*
 
 ---
