@@ -1022,7 +1022,8 @@ with gr.Blocks(title="PostWise", **BLOCKS_CSS, **BLOCKS_HEAD, **BLOCKS_THEME) as
                 gr.HTML(
                     '<div class="pw-badge">✨ AI Content Strategy</div>'
                     '<h1>Know exactly<br>what to <span>post next.</span></h1>'
-                    '<p>PostWise gives beginner creators a 30-day content plan in 2 minutes. Know exactly what to film, when to post it, and how to measure it.</p>'
+                    '<p>PostWise gives beginner creators a 30-day content plan in 2 minutes. '
+                    'Know exactly what to film, when to post it, and how to measure it.</p>'
                 )
                 with gr.Column(elem_classes=["pw-start-btn-container"]):
                     start_btn = gr.Button("Get Started for Free")
