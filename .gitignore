@@ -29,4 +29,4 @@ venv/
 postwise_ui.py.bak
 
 # Local docker overrides
-.docker/docker-compose.override.yml
+.docker/docker-compose.override.yml.venv/
