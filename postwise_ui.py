@@ -54,12 +54,7 @@ def _light_theme_values(theme: gr.themes.Base) -> dict[str, str]:
 
     for name in names:
         base = name.removesuffix("_dark")
-        if not (
-            base.endswith("_color")
-            or base.endswith("_fill")
-            or base.startswith("color_")
-            or base == "checkbox_check"
-        ):
+        if not (base.endswith("_color") or base.endswith("_fill") or base.startswith("color_") or base == "checkbox_check"):
             continue
 
         if base in text_colors:
@@ -710,12 +705,7 @@ def _upper(value: object) -> str:
 
 
 def _section(label: str, content: object) -> str:
-    return (
-        '<section class="pw-section">'
-        f'<p class="pw-label">{_text(label)}</p>'
-        f'<p class="pw-body">{_text(content)}</p>'
-        "</section>"
-    )
+    return f'<section class="pw-section"><p class="pw-label">{_text(label)}</p><p class="pw-body">{_text(content)}</p></section>'
 
 
 def _format_score(value: object) -> str:
@@ -732,13 +722,9 @@ def _render_hero(card: dict[str, object], complete: bool) -> str:
     format_value = str(card.get("format") or "")
     outline_label = OUTLINE_LABELS.get(format_value, "OUTLINE")
 
-    completion = (
-        '<p class="pw-complete">All posts are done. Next week opens Monday.</p>' if complete else ""
-    )
+    completion = '<p class="pw-complete">All posts are done. Next week opens Monday.</p>' if complete else ""
     button = (
-        '<button class="pw-action" type="button" '
-        "onclick=\"document.querySelector('#made-btn button, button#made-btn')?.click()\">"
-        "I made it</button>"
+        '<button class="pw-action" type="button" onclick="document.querySelector(\'#made-btn button, button#made-btn\')?.click()">I made it</button>'
         if not card.get("made")
         else ""
     )
@@ -765,8 +751,7 @@ def _render_queue(queue: list[dict[str, object]]) -> str:
         state = (
             '<span class="pw-queue-state" aria-label="Made">✓</span>'
             if card.get("made")
-            else '<span class="pw-queue-state" aria-label="Locked">'
-            '<span class="pw-lock" aria-hidden="true"></span></span>'
+            else '<span class="pw-queue-state" aria-label="Locked"><span class="pw-lock" aria-hidden="true"></span></span>'
         )
         cards.append(
             '<article class="pw-queue-card">'
@@ -788,8 +773,7 @@ def _render_plan_details(plan: dict[str, object]) -> str:
 
     direction_items = (
         "".join(
-            '<li><span class="pw-plan-item-title">'
-            f"{_upper(item.get('pillar'))}:</span> {_text(item.get('idea'))}</li>"
+            f'<li><span class="pw-plan-item-title">{_upper(item.get("pillar"))}:</span> {_text(item.get("idea"))}</li>'
             for item in direction
             if isinstance(item, dict)
         )
@@ -799,11 +783,7 @@ def _render_plan_details(plan: dict[str, object]) -> str:
     topic_list = audience.get("topics", []) if isinstance(audience, dict) else []
     audience_source = audience.get("source") if isinstance(audience, dict) else ""
     source_label = "from your DMs" if audience_source == "dm" else "suggested"
-    topic_items = (
-        "".join(f"<li>{_text(topic)}</li>" for topic in topic_list if isinstance(topic, str))
-        if isinstance(topic_list, list)
-        else ""
-    )
+    topic_items = "".join(f"<li>{_text(topic)}</li>" for topic in topic_list if isinstance(topic, str)) if isinstance(topic_list, list) else ""
     rhythm_items = (
         "".join(
             '<li><span class="pw-plan-item-title">'
@@ -818,8 +798,7 @@ def _render_plan_details(plan: dict[str, object]) -> str:
     )
     metric_items = (
         "".join(
-            '<li><span class="pw-plan-item-title">'
-            f"{_text(item.get('name'))}:</span> {_text(item.get('why'))}</li>"
+            f'<li><span class="pw-plan-item-title">{_text(item.get("name"))}:</span> {_text(item.get("why"))}</li>'
             for item in metrics
             if isinstance(item, dict)
         )
@@ -874,11 +853,7 @@ def render_plan_html(view: dict[str, object], elapsed: float, answer_count: int)
         hero_html = _render_hero(hero, total > 0 and made >= total)
     else:
         hero_html = '<p class="pw-body">No posts are available in this plan.</p>'
-    queue_html = (
-        _render_queue(queue)
-        if isinstance(queue, list) and all(isinstance(card, dict) for card in queue)
-        else ""
-    )
+    queue_html = _render_queue(queue) if isinstance(queue, list) and all(isinstance(card, dict) for card in queue) else ""
     calls = 2 + total
 
     return (
@@ -888,8 +863,8 @@ def render_plan_html(view: dict[str, object], elapsed: float, answer_count: int)
         '<div class="pw-nav-right">'
         '<button class="pw-share-btn" onclick="navigator.clipboard.writeText(window.location.href); alert(\'Link copied to clipboard!\');">Share Plan</button>'
         '<div class="pw-profile"><div class="pw-avatar">C</div> Creator (Pro)</div>'
-        '</div>'
-        '</nav>'
+        "</div>"
+        "</nav>"
         "<header>"
         '<p class="pw-lane-label">YOUR LANE</p>'
         f'<h1 class="pw-lane">{_text(view.get("lane"))}</h1>'
@@ -1009,7 +984,6 @@ def on_made(
 
 
 with gr.Blocks(title="PostWise", **BLOCKS_CSS, **BLOCKS_HEAD, **BLOCKS_THEME) as demo:
-    
     session_state = gr.State(value=None)
     result_state = gr.State(value=None)
     render_stats_state = gr.State(value=None)
@@ -1021,13 +995,13 @@ with gr.Blocks(title="PostWise", **BLOCKS_CSS, **BLOCKS_HEAD, **BLOCKS_THEME) as
             with gr.Column(scale=1, elem_classes=["pw-hero-text"]):
                 gr.HTML(
                     '<div class="pw-badge">✨ AI Content Strategy</div>'
-                    '<h1>Know exactly<br>what to <span>post next.</span></h1>'
-                    '<p>PostWise gives beginner creators a 30-day content plan in 2 minutes. '
-                    'Know exactly what to film, when to post it, and how to measure it.</p>'
+                    "<h1>Know exactly<br>what to <span>post next.</span></h1>"
+                    "<p>PostWise gives beginner creators a 30-day content plan in 2 minutes. "
+                    "Know exactly what to film, when to post it, and how to measure it.</p>"
                 )
                 with gr.Column(elem_classes=["pw-start-btn-container"]):
                     start_btn = gr.Button("Get Started for Free")
-            
+
             # Right Side (CSS Mockup)
             with gr.Column(scale=1, elem_classes=["pw-hero-visual"]):
                 gr.HTML(
@@ -1037,7 +1011,7 @@ with gr.Blocks(title="PostWise", **BLOCKS_CSS, **BLOCKS_HEAD, **BLOCKS_THEME) as
                     '<div class="pw-mockup-meta" style="margin-bottom: 8px;">PREMISE & BEATS</div>'
                     '<div class="pw-mockup-body">First day chaos. Panic. Fake confidence. Punchline.</div>'
                     '<div class="pw-mockup-fix">One fix → widen the hook to 40-80 chars</div>'
-                    '</div>'
+                    "</div>"
                 )
 
     # --- STATE 1: FORM ---
@@ -1045,18 +1019,18 @@ with gr.Blocks(title="PostWise", **BLOCKS_CSS, **BLOCKS_HEAD, **BLOCKS_THEME) as
         with gr.Column(elem_classes=["pw-header"]):
             gr.Markdown("# PostWise", elem_classes=["pw-title"])
             gr.Markdown("A clear plan for creators who are just starting", elem_classes=["pw-tagline"])
-            
+
         makes_and_audience = gr.Textbox(label="What do you make, and who is it for?", lines=1)
         goal_90d = gr.Textbox(label="What do you want in 90 days?", lines=1)
         hours_per_week = gr.Slider(minimum=1, maximum=20, value=5, step=1, label="Hours per week you can give this")
         audience_locations = gr.Textbox(label="Where is your audience?", lines=1, placeholder="Separate locations with commas")
         platforms = gr.CheckboxGroup(choices=PLATFORM_CHOICES, label="Platforms")
         formats = gr.CheckboxGroup(choices=FORMAT_CHOICES, label="Formats")
-        
+
         with gr.Accordion("Make the plan sharper", open=False):
             samples = gr.Textbox(label="Paste up to 3 posts, captions, or transcripts.", lines=3, max_lines=3, placeholder="One per line")
             dm_questions = gr.Textbox(label="Questions people ask you in DMs or comments.", lines=4, max_lines=20, placeholder="One per line")
-            
+
         submit_btn = gr.Button("Build my plan", variant="primary", elem_classes=["pw-primary"])
         build_status = gr.Markdown("", elem_id="build-status")
 
@@ -1067,11 +1041,7 @@ with gr.Blocks(title="PostWise", **BLOCKS_CSS, **BLOCKS_HEAD, **BLOCKS_THEME) as
     made_btn = gr.Button("I made it", elem_id="made-btn")
 
     # --- EVENTS ---
-    start_btn.click(
-        fn=lambda: (gr.update(visible=False), gr.update(visible=True)),
-        inputs=None,
-        outputs=[landing_column, form_column]
-    )
+    start_btn.click(fn=lambda: (gr.update(visible=False), gr.update(visible=True)), inputs=None, outputs=[landing_column, form_column])
 
     submit_btn.click(
         on_submit,
@@ -1086,7 +1056,7 @@ with gr.Blocks(title="PostWise", **BLOCKS_CSS, **BLOCKS_HEAD, **BLOCKS_THEME) as
         outputs=[plan_html],
         show_progress="hidden",
     )
-    
+
     demo.load(None, js=LIGHT_MODE_JS, queue=False)
 
 

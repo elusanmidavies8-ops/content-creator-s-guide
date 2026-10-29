@@ -16,14 +16,9 @@ def run(inp: CreatorInput) -> CleanInput:
     warnings: list[str] = []
 
     if not inp.samples:
-        warnings.append(
-            "No samples pasted — DR03 will suggest a starting voice and label it as a suggestion."
-        )
+        warnings.append("No samples pasted — DR03 will suggest a starting voice and label it as a suggestion.")
 
     if not inp.dm_questions:
-        warnings.append(
-            "No DM questions pasted — DR04 will suggest audience topics "
-            "and label them as suggestions."
-        )
+        warnings.append("No DM questions pasted — DR04 will suggest audience topics and label them as suggestions.")
 
     return CleanInput(input=inp, warnings=warnings)

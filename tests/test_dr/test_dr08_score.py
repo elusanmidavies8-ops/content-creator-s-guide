@@ -57,14 +57,7 @@ def test_all_sub_scores_in_range():
 def test_overall_is_mean_of_sub_scores():
     result = dr08_score.run(_brief(), _voice())
     expected = round(
-        (
-            result.sub_scores.hook
-            + result.sub_scores.premise
-            + result.sub_scores.caption_length
-            + result.sub_scores.format_fit
-            + result.sub_scores.voice
-        )
-        / 5.0,
+        (result.sub_scores.hook + result.sub_scores.premise + result.sub_scores.caption_length + result.sub_scores.format_fit + result.sub_scores.voice) / 5.0,
         2,
     )
     assert result.overall == expected

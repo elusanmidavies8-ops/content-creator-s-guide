@@ -39,6 +39,4 @@ def test_pure_module_does_not_import_ai(module: str) -> None:
     if not path.exists():
         pytest.skip(f"{module} not written yet")
     for imp in _imports_from(path):
-        assert not imp.startswith("postwise.ai"), (
-            f"{module} must not import {imp} — pure modules cannot touch the AI layer"
-        )
+        assert not imp.startswith("postwise.ai"), f"{module} must not import {imp} — pure modules cannot touch the AI layer"

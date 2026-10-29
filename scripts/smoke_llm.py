@@ -17,14 +17,8 @@ print()
 client = get_client(settings)
 
 profile = client.complete_json(
-    system=(
-        "You are a content strategist. Read the creator's answer and return "
-        "JSON with fields: niche, audience, goal, voice_summary. Return JSON."
-    ),
-    user=(
-        "Creator says: comedy skits for Nigerian Gen Z on Instagram. "
-        "Goal: 5,000 followers in 90 days. Return JSON."
-    ),
+    system=("You are a content strategist. Read the creator's answer and return JSON with fields: niche, audience, goal, voice_summary. Return JSON."),
+    user=("Creator says: comedy skits for Nigerian Gen Z on Instagram. Goal: 5,000 followers in 90 days. Return JSON."),
     schema=CreatorProfile,
 )
 

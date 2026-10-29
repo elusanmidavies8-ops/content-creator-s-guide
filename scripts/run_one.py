@@ -53,10 +53,7 @@ for topic in result.audience_wants.topics:
 print("\n📅 RHYTHM (DR11)")
 print(f"   Total slots: {len(result.rhythm.slots)}")
 for slot in result.rhythm.slots:
-    print(
-        f"   - {slot.slot_id}: {slot.format.value} on "
-        f"{slot.day.value} {slot.daypart.value} ({slot.platform.value})"
-    )
+    print(f"   - {slot.slot_id}: {slot.format.value} on {slot.day.value} {slot.daypart.value} ({slot.platform.value})")
 
 print("\n📊 SCOREBOARD (DR12)")
 print(f"   Goal type: {result.scoreboard.goal_type.value}")

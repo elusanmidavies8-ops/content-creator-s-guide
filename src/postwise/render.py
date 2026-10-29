@@ -42,11 +42,7 @@ def build_view(result: PipelineResult, session_id: str) -> dict[str, object]:
         slot_lookup,
         is_hero=True,
     )
-    queue = [
-        _brief_to_card(b, made, slot_lookup, is_hero=False, locked=True)
-        for i, b in enumerate(result.briefs)
-        if i != hero_idx
-    ]
+    queue = [_brief_to_card(b, made, slot_lookup, is_hero=False, locked=True) for i, b in enumerate(result.briefs) if i != hero_idx]
 
     return {
         "session_id": session_id,
