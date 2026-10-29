@@ -6,7 +6,13 @@ from pydantic import SecretStr, ValidationError
 from postwise.config import Settings, get_settings
 
 
-def test_defaults_are_safe_for_dev():
+def test_defaults_are_safe_for_dev(monkeypatch):
+    # Clear any local shell environment variables so we test the actual defaults
+    monkeypatch.delenv("POSTWISE_APP_ENV", raising=False)
+    monkeypatch.delenv("POSTWISE_LLM_PROVIDER", raising=False)
+    monkeypatch.delenv("POSTWISE_LLM_MODEL", raising=False)
+    monkeypatch.delenv("POSTWISE_LLM_API_KEY", raising=False)
+
     s = Settings(_env_file=None)
     assert s.app_env == "dev"
     assert s.llm_provider == "fake"  # tests never hit network by default
